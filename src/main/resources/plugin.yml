@@ -1,0 +1,8 @@
+name: RandomChests
+main: com.gotofinal.diggler.chests.Chests
+author: GotoFinal
+version: 1.0
+softdepend: [WorldEdit, WorldGuard]
+api-version: 1.13
+#commands:
+#  chests: {}
