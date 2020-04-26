@@ -1,13 +1,14 @@
 package com.gotofinal.diggler.chests;
 
 import com.gotofinal.diggler.chests.cfg.Cfg;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
+//import com.sk89q.worldedit.bukkit.BukkitAdapter;
+//import com.sk89q.worldedit.math.BlockVector3;
+//import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+//import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import me.travja.darkrise.core.legacy.util.item.*;
-import me.travja.darkrise.core.util.BlockLocation;
+//import me.travja.darkrise.core.util.BlockLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -63,12 +64,12 @@ public class Chests extends JavaPlugin {
     }
 
     public static boolean isInRegion(final Location location) {
-        WorldGuardPlatform platform = WorldGuard.getInstance().getPlatform();
-        RegionManager manager = platform.getRegionContainer()
-                .get(BukkitAdapter.adapt(location.getWorld()));
+//        WorldGuardPlatform platform = WorldGuard.getInstance().getPlatform(); // Commented are 1.13+ api things
+        RegionManager manager = /*platform*/ WorldGuardPlugin.inst().getRegionContainer()
+                .get(/*BukkitAdapter.adapt(*/location.getWorld())/*)*/;
 
-        return manager != null && manager
-                .getApplicableRegions(BlockVector3.at(location.getX(), location.getY(), location.getZ())).size() > 0;
+        return manager != null && manager.getApplicableRegions(location).size() > 0;
+//                .getApplicableRegions(BlockVector3.at(location.getX(), location.getY(), location.getZ())).size() > 0;
     }
 
     @Override

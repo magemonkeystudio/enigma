@@ -138,7 +138,7 @@ public class WorldChests implements ConfigurationSerializable {
             return null;
         }
         Material mat = this.world.getBlockAt(x, y, z).getType();
-        if (!(mat == Material.GRASS_BLOCK || mat == Material.STONE)) return null;
+        if (!(mat == Material.GRASS/*Material.GRASS_BLOCK*/ || mat == Material.STONE)) return null;
 //        if (mat == Material.LAVA || mat == Material.WATER) {
 //            return null;
 //        }
