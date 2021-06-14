@@ -6,7 +6,7 @@
 
     <groupId>com.gotofinal.diggler</groupId>
     <artifactId>randomchests</artifactId>
-    <name>RandomChests</name>
+    <name>ProRandomChests</name>
 
     <parent>
         <artifactId>risecore-parent</artifactId>
