@@ -28,15 +28,15 @@ import java.util.Map.Entry;
 
 @SerializableAs("RC_WorldChests")
 public class WorldChests implements ConfigurationSerializable {
-    private final World world;
-    private final int maxChests;
-    private final MapLocation min;
-    private final MapLocation max;
-    private final BlockType blockType;
-    private final Collection<BlockLocation> chests;
-    private final Multimap<Long, MapLocation> chestsToSpawn;
-    private final transient IntRange rx;
-    private final transient IntRange rz;
+    private final           World                       world;
+    private final           int                         maxChests;
+    private final           MapLocation                 min;
+    private final           MapLocation                 max;
+    private final           BlockType                   blockType;
+    private final           Collection<BlockLocation>   chests;
+    private final           Multimap<Long, MapLocation> chestsToSpawn;
+    private final transient IntRange                    rx;
+    private final transient IntRange                    rz;
 
     public WorldChests(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
@@ -93,8 +93,8 @@ public class WorldChests implements ConfigurationSerializable {
         block.setType(Material.AIR);
         ItemCommand.invoke(player, Cfg.getCommands());
         for (final FireworkBuilder fireData : Cfg.getFireworks()) {
-            final Firework firework = this.world.spawn(block.getLocation().add(0, 5, 0), Firework.class);
-            final FireworkMeta meta = firework.getFireworkMeta();
+            final Firework     firework = this.world.spawn(block.getLocation().add(0, 5, 0), Firework.class);
+            final FireworkMeta meta     = firework.getFireworkMeta();
             fireData.apply(meta);
             firework.setFireworkMeta(meta);
         }
@@ -108,8 +108,8 @@ public class WorldChests implements ConfigurationSerializable {
     public void onLoadChunk(final Chunk chunk) {
         int i = 0;
         for (final Iterator<MapLocation> it = this.chestsToSpawn.get(IntsToLong.pack(chunk.getX(), chunk.getZ())).iterator(); it.hasNext(); ) {
-            final MapLocation loc = it.next();
-            final Block block = this.spawnChest(loc.getX(), loc.getZ());
+            final MapLocation loc   = it.next();
+            final Block       block = this.spawnChest(loc.getX(), loc.getZ());
             if (block == null) {
                 i++;
             } else {
@@ -128,7 +128,7 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (count >= 200) {
-            Chests.getInstance().getLogger().warning("Could add new chests upon chunk load after 200 attempts.");
+            Chests.getInstance().getLogger().warning("Couldn't add new chests upon chunk load after 200 attempts.");
         }
     }
 
@@ -138,7 +138,7 @@ public class WorldChests implements ConfigurationSerializable {
             return null;
         }
         Material mat = this.world.getBlockAt(x, y, z).getType();
-        if (!(mat == Material.GRASS/*Material.GRASS_BLOCK*/ || mat == Material.STONE)) return null;
+        if (!(mat == Material.GRASS_BLOCK || mat == Material.STONE)) return null;
 //        if (mat == Material.LAVA || mat == Material.WATER) {
 //            return null;
 //        }
@@ -184,9 +184,9 @@ public class WorldChests implements ConfigurationSerializable {
             return;
         }
         Chests.getInstance().getLogger().info("We don't have enough chests, attempting to add more.");
-        int i = 0;
-        final int s = (this.maxChests - (this.chests.size() + this.chestsToSpawn.size()));
-        int count = 0;
+        int       i     = 0;
+        final int s     = (this.maxChests - (this.chests.size() + this.chestsToSpawn.size()));
+        int       count = 0;
         while (i < s && count < 200) {
             if (this.addRandomChest()) {
                 i++;
@@ -195,7 +195,7 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (count >= 200) {
-            Chests.getInstance().getLogger().warning("Could add new chests upon chunk load after 200 attempts.");
+            Chests.getInstance().getLogger().warning("Couldn't add new chests after 200 attempts. Maybe the chunk is not loaded?");
         }
     }
 
