@@ -1,7 +1,7 @@
 package com.promcteam.enigma.utils;
 
-import me.travja.darkrise.core.legacy.util.DeserializationWorker;
-import me.travja.darkrise.core.legacy.util.SerializationBuilder;
+import com.promcteam.risecore.legacy.util.DeserializationWorker;
+import com.promcteam.risecore.legacy.util.SerializationBuilder;
 import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.inventory.ItemStack;

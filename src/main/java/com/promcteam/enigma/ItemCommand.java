@@ -3,13 +3,13 @@ package com.promcteam.enigma;
 import java.util.Iterator;
 import java.util.Map;
 
-import me.travja.darkrise.core.legacy.util.DeserializationWorker;
-import me.travja.darkrise.core.legacy.util.SerializationBuilder;
+import com.promcteam.risecore.legacy.util.DeserializationWorker;
+import com.promcteam.risecore.legacy.util.SerializationBuilder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 @SerializableAs("Enigma_ItemCommand")
 public class ItemCommand implements ConfigurationSerializable {
@@ -65,8 +65,8 @@ public class ItemCommand implements ConfigurationSerializable {
 
     @Override
     public String toString() {
-        return new org.apache.commons.lang.builder.ToStringBuilder(this,
-                org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+        return new org.apache.commons.lang3.builder.ToStringBuilder(this,
+                org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
                 .append("commandType", this.commandType)
                 .append("command", this.command)
                 .append("delay", this.delay)

@@ -1,6 +1,7 @@
 package com.promcteam.enigma.utils;
 
-import org.apache.commons.lang.Validate;
+import lombok.Getter;
+import org.apache.commons.lang3.Validate;
 
 import java.util.*;
 import java.util.stream.DoubleStream;
@@ -8,14 +9,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 public final class RandomUtils {
+    @Getter
     private static final Random random = new Random();
-
-    private RandomUtils() {
-    }
-
-    public static Random getRandom() {
-        return random;
-    }
 
     public static <T> T getRand(final T[] array) {
         return getRand(random, array);
@@ -197,10 +192,6 @@ public final class RandomUtils {
     public static boolean getChance(final Random random, final double chance) {
         return (chance > 0) && ((chance >= 100) || (chance >= getRandDouble(random, 0, 100)));
     }
-
-    /**
-     * Delegated {@link Random} methods.
-     */
 
     /**
      * Generates random bytes and places them into a user-supplied
@@ -456,10 +447,11 @@ public final class RandomUtils {
      * <p>
      * <p>A pseudorandom {@code int} value is generated as if it's the result of
      * calling the method {@link #nextInt()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * ints(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code int} values
-     * @implNote This method is implemented to be equivalent to {@code
-     * ints(Long.MAX_VALUE)}.
      */
     public static IntStream ints() {
         return random.ints();
@@ -521,6 +513,9 @@ public final class RandomUtils {
      *     return r;
      *   }
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * ints(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
@@ -528,8 +523,6 @@ public final class RandomUtils {
      * each with the given origin (inclusive) and bound (exclusive)
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * ints(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
     public static IntStream ints(final int randomNumberOrigin, final int randomNumberBound) {
         return random.ints(randomNumberOrigin, randomNumberBound);
@@ -557,10 +550,11 @@ public final class RandomUtils {
      * <p>
      * <p>A pseudorandom {@code long} value is generated as if it's the result
      * of calling the method {@link #nextLong()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * longs(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code long} values
-     * @implNote This method is implemented to be equivalent to {@code
-     * longs(Long.MAX_VALUE)}.
      */
     public static LongStream longs() {
         return random.longs();
@@ -632,6 +626,9 @@ public final class RandomUtils {
      *   }
      *   return r;
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * longs(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
@@ -639,8 +636,6 @@ public final class RandomUtils {
      * each with the given origin (inclusive) and bound (exclusive)
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * longs(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
     public static LongStream longs(final long randomNumberOrigin, final long randomNumberBound) {
         return random.longs(randomNumberOrigin, randomNumberBound);
@@ -670,10 +665,11 @@ public final class RandomUtils {
      * <p>
      * <p>A pseudorandom {@code double} value is generated as if it's the result
      * of calling the method {@link #nextDouble()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * doubles(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code double} values
-     * @implNote This method is implemented to be equivalent to {@code
-     * doubles(Long.MAX_VALUE)}.
      */
     public static DoubleStream doubles() {
         return random.doubles();
@@ -726,6 +722,9 @@ public final class RandomUtils {
      *     r = Math.nextDown(bound);
      *   return r;
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * doubles(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
@@ -733,8 +732,6 @@ public final class RandomUtils {
      * each with the given origin (inclusive) and bound (exclusive)
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * doubles(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
     public static DoubleStream doubles(final double randomNumberOrigin, final double randomNumberBound) {
         return random.doubles(randomNumberOrigin, randomNumberBound);
