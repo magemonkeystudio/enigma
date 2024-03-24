@@ -1,7 +1,6 @@
 package com.gotofinal.diggler.chests.utils;
 
-public final class BlockColors
-{
+public final class BlockColors {
     public static final byte WHITE      = 0x0;
     public static final byte ORANGE     = 0x1;
     public static final byte MAGENTA    = 0x2;
@@ -19,7 +18,6 @@ public final class BlockColors
     public static final byte RED        = 0xE;
     public static final byte BLACK      = 0xF;
 
-    private BlockColors()
-    {
+    private BlockColors() {
     }
 }

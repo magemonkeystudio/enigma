@@ -1,9 +1,9 @@
-name: ProRandomChests
-main: com.gotofinal.diggler.chests.Chests
-authors: [Travja, GoFlish]
-version: 1.0
-depend: [RiseCore]
-softdepend: [WorldEdit, WorldGuard]
+name: ${project.name}
+main: com.promcteam.enigma.Enigma
+authors: [ Travja, GoFlish ]
+version: ${project.version}
+depend: [ RiseCore ]
+softdepend: [ WorldEdit, WorldGuard ]
 api-version: 1.13
 #commands:
 #  chests: {}

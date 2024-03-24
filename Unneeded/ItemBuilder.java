@@ -12,15 +12,15 @@ import org.bukkit.inventory.meta.*;
 
 import java.util.*;
 
-@SerializableAs("RC_Item")
+@SerializableAs("Enigma_Item")
 public class ItemBuilder implements ConfigurationSerializable {
-    protected Material material = Material.AIR;
-    protected int amount = 1;
-    protected short durability = 0;
-    protected String name;
-    protected List<String> lore = new ArrayList<>(5);
-    protected Map<Enchantment, Integer> enchants = new LinkedHashMap<>(3);
-    protected DataBuilder dataBuilder = null;
+    protected Material                  material    = Material.AIR;
+    protected int                       amount      = 1;
+    protected short                     durability  = 0;
+    protected String                    name;
+    protected List<String>              lore        = new ArrayList<>(5);
+    protected Map<Enchantment, Integer> enchants    = new LinkedHashMap<>(3);
+    protected DataBuilder               dataBuilder = null;
     //  protected UnaryOperator<String> func;
 
     public ItemBuilder() {
@@ -43,7 +43,15 @@ public class ItemBuilder implements ConfigurationSerializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("material", this.material).append("amount", this.amount).append("durability", this.durability).append("name", this.name).append("lore", this.lore).append("enchants", this.enchants).append("dataBuilder", this.dataBuilder).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("material", this.material)
+                .append("amount", this.amount)
+                .append("durability", this.durability)
+                .append("name", this.name)
+                .append("lore", this.lore)
+                .append("enchants", this.enchants)
+                .append("dataBuilder", this.dataBuilder)
+                .toString();
     }
 
     public Material getMaterial() {
@@ -210,7 +218,8 @@ public class ItemBuilder implements ConfigurationSerializable {
     }
 
     public ItemBuilder enchant(final ItemMeta source) {
-        this.enchants = source.hasEnchants() ? new LinkedHashMap<>(source.getEnchants()) : new LinkedHashMap<Enchantment, Integer>(3);
+        this.enchants = source.hasEnchants() ? new LinkedHashMap<>(source.getEnchants())
+                : new LinkedHashMap<Enchantment, Integer>(3);
         return this;
     }
 
@@ -355,7 +364,7 @@ public class ItemBuilder implements ConfigurationSerializable {
             return new ItemBuilder();
         }
         final ItemBuilder itemBuilder = new ItemBuilder().material(itemStack).amount(itemStack).durability(itemStack);
-        final ItemMeta meta = Utils.getItemMeta(itemStack);
+        final ItemMeta    meta        = Utils.getItemMeta(itemStack);
         if (meta == null) {
             return itemBuilder;
         }

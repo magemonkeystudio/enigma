@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests;
+package com.promcteam.enigma;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -10,12 +10,12 @@ import org.bukkit.event.world.ChunkLoadEvent;
 
 public class WorldListener implements Listener {
     public static void init() {
-        Bukkit.getPluginManager().registerEvents(new WorldListener(), Chests.getInstance());
+        Bukkit.getPluginManager().registerEvents(new WorldListener(), Enigma.getInstance());
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onChunkLoad(final ChunkLoadEvent event) {
-        final WorldChests c = Chests.getWorld(event.getWorld().getName());
+        final WorldChests c = Enigma.getWorld(event.getWorld().getName());
         if (c == null) {
             return;
         }
@@ -27,7 +27,7 @@ public class WorldListener implements Listener {
         if ((event.getAction() != Action.RIGHT_CLICK_BLOCK) && (event.getAction() != Action.LEFT_CLICK_BLOCK)) {
             return;
         }
-        final WorldChests c = Chests.getWorld(event.getPlayer().getWorld().getName());
+        final WorldChests c = Enigma.getWorld(event.getPlayer().getWorld().getName());
         if (c == null) {
             return;
         }

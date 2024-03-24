@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests;
+package com.promcteam.enigma;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;

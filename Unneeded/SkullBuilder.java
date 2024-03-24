@@ -9,44 +9,36 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-@SerializableAs("RC_SkullMeta")
-public class SkullBuilder implements DataBuilder
-{
+@SerializableAs("Enigma_SkullMeta")
+public class SkullBuilder implements DataBuilder {
     private String owner;
 
-    public SkullBuilder()
-    {
+    public SkullBuilder() {
     }
 
-    public SkullBuilder(final Map<String, Object> map)
-    {
+    public SkullBuilder(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
         this.owner = w.getString("owner");
     }
 
-    public String getOwner()
-    {
+    public String getOwner() {
         return this.owner;
     }
 
     @SuppressWarnings("TypeMayBeWeakened")
-    public SkullBuilder owner(final String owner)
-    {
+    public SkullBuilder owner(final String owner) {
         this.owner = owner;
         return this;
     }
 
-    public SkullBuilder clear()
-    {
+    public SkullBuilder clear() {
         this.owner = null;
         return this;
     }
 
     @Override
-    public void apply(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof SkullMeta))
-        {
+    public void apply(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof SkullMeta)) {
             return;
         }
         final SkullMeta meta = (SkullMeta) itemMeta;
@@ -54,10 +46,8 @@ public class SkullBuilder implements DataBuilder
     }
 
     @Override
-    public SkullBuilder use(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof SkullMeta))
-        {
+    public SkullBuilder use(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof SkullMeta)) {
             return null;
         }
         final SkullMeta meta = (SkullMeta) itemMeta;
@@ -76,21 +66,20 @@ public class SkullBuilder implements DataBuilder
 //    }
 
     @Override
-    public Map<String, Object> serialize()
-    {
+    public Map<String, Object> serialize() {
         final SerializationBuilder b = SerializationBuilder.start(1);
         b.append("owner", this.owner);
         return b.build();
     }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("owner", this.owner).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("owner", this.owner)
+                .toString();
     }
 
-    public static SkullBuilder start()
-    {
+    public static SkullBuilder start() {
         return new SkullBuilder();
     }
 }

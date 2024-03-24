@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests;
+package com.promcteam.enigma;
 
 
 import me.travja.darkrise.core.legacy.util.DeserializationWorker;
@@ -9,14 +9,13 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-@SerializableAs("RC_MapLocation")
+@SerializableAs("Enigma_MapLocation")
 public class MapLocation implements ConfigurationSerializable {
     public static final MapLocation ZERO = new MapLocation(0, 0);
-    protected final int x;
-    protected final int z;
+    protected final     int         x;
+    protected final     int         z;
 
     public MapLocation(final int x, final int z) {
         this.x = x;
@@ -122,7 +121,9 @@ public class MapLocation implements ConfigurationSerializable {
 
     @Override
     public Map<String, Object> serialize() {
-        return SerializationBuilder.start(3)/*.append("==", "RC_MapLocation")*/.append("x", this.x).append("z", this.z).build();
+        return SerializationBuilder.start(3)/*.append("==", "Enigma_MapLocation")*/.append("x", this.x)
+                .append("z", this.z)
+                .build();
     }
 
     private static int square(final int x) {
@@ -157,6 +158,9 @@ public class MapLocation implements ConfigurationSerializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("x", this.x).append("z", this.z).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("x", this.x)
+                .append("z", this.z)
+                .toString();
     }
 }

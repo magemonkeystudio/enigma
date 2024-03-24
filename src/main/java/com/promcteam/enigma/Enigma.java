@@ -1,18 +1,13 @@
-package com.gotofinal.diggler.chests;
+package com.promcteam.enigma;
 
-import com.gotofinal.diggler.chests.cfg.Cfg;
-//import com.sk89q.worldedit.bukkit.BukkitAdapter;
-//import com.sk89q.worldedit.math.BlockVector3;
-//import com.sk89q.worldguard.WorldGuard;
+import com.promcteam.enigma.cfg.Cfg;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-//import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.protection.managers.RegionManager;
+import lombok.Getter;
 import me.travja.darkrise.core.legacy.util.item.*;
-//import me.travja.darkrise.core.util.BlockLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -21,13 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Chests extends JavaPlugin {
-    private static Chests instance;
+public class Enigma extends JavaPlugin {
+    @Getter
+    private static       Enigma                   instance;
+    @Getter
     private static final Map<String, WorldChests> worlds = new HashMap<>(3);
-
-    public static Chests getInstance() {
-        return instance;
-    }
 
     public static void addWorld(final WorldChests world) {
         worlds.put(world.getWorld().getName(), world);
@@ -37,26 +30,22 @@ public class Chests extends JavaPlugin {
         return worlds.get(world);
     }
 
-    public static Map<String, WorldChests> getWorlds() {
-        return worlds;
-    }
-
     {
-        Chests.instance = this;
-        ConfigurationSerialization.registerClass(EnchantmentStorageBuilder.class, "RC_EnchantmentStorageMeta");
-        ConfigurationSerialization.registerClass(FireworkEffectBuilder.class, "RC_FireworkEffectMeta");
-        ConfigurationSerialization.registerClass(LeatherArmorBuilder.class, "RC_LeatherArmorMeta");
-        ConfigurationSerialization.registerClass(PotionDataBuilder.class, "RC_PotionMeta");
-        ConfigurationSerialization.registerClass(FireworkBuilder.class, "RC_FireworkMeta");
-        ConfigurationSerialization.registerClass(BookDataBuilder.class, "RC_BookMeta");
-        ConfigurationSerialization.registerClass(SkullBuilder.class, "RC_SkullMeta");
-        ConfigurationSerialization.registerClass(MapBuilder.class, "RC_MapMeta");
-        ConfigurationSerialization.registerClass(ItemBuilder.class, "RC_Item");
+        Enigma.instance = this;
+        ConfigurationSerialization.registerClass(EnchantmentStorageBuilder.class, "Enigma_EnchantmentStorageMeta");
+        ConfigurationSerialization.registerClass(FireworkEffectBuilder.class, "Enigma_FireworkEffectMeta");
+        ConfigurationSerialization.registerClass(LeatherArmorBuilder.class, "Enigma_LeatherArmorMeta");
+        ConfigurationSerialization.registerClass(PotionDataBuilder.class, "Enigma_PotionMeta");
+        ConfigurationSerialization.registerClass(FireworkBuilder.class, "Enigma_FireworkMeta");
+        ConfigurationSerialization.registerClass(BookDataBuilder.class, "Enigma_BookMeta");
+        ConfigurationSerialization.registerClass(SkullBuilder.class, "Enigma_SkullMeta");
+        ConfigurationSerialization.registerClass(MapBuilder.class, "Enigma_MapMeta");
+        ConfigurationSerialization.registerClass(ItemBuilder.class, "Enigma_Item");
 
-        ConfigurationSerialization.registerClass(WorldChests.class, "RC_WorldChests");
-        ConfigurationSerialization.registerClass(MapLocation.class, "RC_MapLocation");
+        ConfigurationSerialization.registerClass(WorldChests.class, "Enigma_WorldChests");
+        ConfigurationSerialization.registerClass(MapLocation.class, "Enigma_MapLocation");
 
-        ConfigurationSerialization.registerClass(ItemCommand.class, "RC_ItemCommand");
+        ConfigurationSerialization.registerClass(ItemCommand.class, "Enigma_ItemCommand");
     }
 
     @Override

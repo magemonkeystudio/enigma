@@ -10,71 +10,58 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-@SerializableAs("RC_LeatherArmorMeta")
-public class LeatherArmorBuilder implements DataBuilder
-{
+@SerializableAs("Enigma_LeatherArmorMeta")
+public class LeatherArmorBuilder implements DataBuilder {
     private int red, green, blue;
 
-    public LeatherArmorBuilder()
-    {
+    public LeatherArmorBuilder() {
     }
 
-    public LeatherArmorBuilder(final Map<String, Object> map)
-    {
-        final DeserializationWorker w = DeserializationWorker.start(map);
-        final Color color = Utils.simpleDeserializeColor(w.getString("color"));
-        if (color == null)
-        {
+    public LeatherArmorBuilder(final Map<String, Object> map) {
+        final DeserializationWorker w     = DeserializationWorker.start(map);
+        final Color                 color = Utils.simpleDeserializeColor(w.getString("color"));
+        if (color == null) {
             return;
         }
         this.color(color);
     }
 
-    public int getRed()
-    {
+    public int getRed() {
         return this.red;
     }
 
-    public int getBlue()
-    {
+    public int getBlue() {
         return this.blue;
     }
 
-    public int getGreen()
-    {
+    public int getGreen() {
         return this.green;
     }
 
-    public LeatherArmorBuilder red(final int red)
-    {
+    public LeatherArmorBuilder red(final int red) {
         this.red = red;
         return this;
     }
 
-    public LeatherArmorBuilder green(final int green)
-    {
+    public LeatherArmorBuilder green(final int green) {
         this.green = green;
         return this;
     }
 
-    public LeatherArmorBuilder blue(final int blue)
-    {
+    public LeatherArmorBuilder blue(final int blue) {
         this.blue = blue;
         return this;
     }
 
-    public LeatherArmorBuilder color(final int red, final int green, final int blue)
-    {
+    public LeatherArmorBuilder color(final int red, final int green, final int blue) {
         this.red = red;
         this.green = green;
         this.blue = blue;
         return this;
     }
 
-    public LeatherArmorBuilder color(final int[] rgb)
-    {
-        if (rgb.length != 3)
-        {
+    public LeatherArmorBuilder color(final int[] rgb) {
+        if (rgb.length != 3) {
             throw new IllegalArgumentException("size of rgb array must be: 3");
         }
         this.red = rgb[0];
@@ -83,8 +70,7 @@ public class LeatherArmorBuilder implements DataBuilder
         return this;
     }
 
-    public LeatherArmorBuilder color(final Color color)
-    {
+    public LeatherArmorBuilder color(final Color color) {
         this.red = color.getRed();
         this.green = color.getGreen();
         this.blue = color.getBlue();
@@ -92,10 +78,8 @@ public class LeatherArmorBuilder implements DataBuilder
     }
 
     @Override
-    public void apply(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof LeatherArmorMeta))
-        {
+    public void apply(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof LeatherArmorMeta)) {
             return;
         }
         final LeatherArmorMeta meta = (LeatherArmorMeta) itemMeta;
@@ -103,10 +87,8 @@ public class LeatherArmorBuilder implements DataBuilder
     }
 
     @Override
-    public LeatherArmorBuilder use(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof LeatherArmorMeta))
-        {
+    public LeatherArmorBuilder use(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof LeatherArmorMeta)) {
             return null;
         }
         final LeatherArmorMeta meta = (LeatherArmorMeta) itemMeta;
@@ -114,21 +96,22 @@ public class LeatherArmorBuilder implements DataBuilder
     }
 
     @Override
-    public Map<String, Object> serialize()
-    {
+    public Map<String, Object> serialize() {
         final SerializationBuilder b = SerializationBuilder.start(1);
         b.append("color", Utils.simpleSerializeColor(Color.fromRGB(this.red, this.green, this.blue)));
         return b.build();
     }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("red", this.red).append("green", this.green).append("blue", this.blue).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("red", this.red)
+                .append("green", this.green)
+                .append("blue", this.blue)
+                .toString();
     }
 
-    public static LeatherArmorBuilder start()
-    {
+    public static LeatherArmorBuilder start() {
         return new LeatherArmorBuilder();
     }
 }

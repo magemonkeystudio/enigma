@@ -10,10 +10,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 
 
-@SerializableAs("RC_FireworkMeta")
+@SerializableAs("Enigma_FireworkMeta")
 public class FireworkBuilder implements DataBuilder {
     private List<FireworkEffect> effects = new ArrayList<>(10);
-    private int power;
+    private int                  power;
 
     public FireworkBuilder() {
     }
@@ -27,7 +27,10 @@ public class FireworkBuilder implements DataBuilder {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("effects", this.effects).append("power", this.power).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("effects", this.effects)
+                .append("power", this.power)
+                .toString();
     }
 
     public FireworkBuilder power(final int power) {

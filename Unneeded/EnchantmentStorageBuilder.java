@@ -12,21 +12,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-@SerializableAs("RC_EnchantmentStorageMeta")
-public class EnchantmentStorageBuilder implements DataBuilder
-{
+@SerializableAs("Enigma_EnchantmentStorageMeta")
+public class EnchantmentStorageBuilder implements DataBuilder {
     private Map<Enchantment, Integer> enchants = new LinkedHashMap<>(3);
 
-    public EnchantmentStorageBuilder()
-    {
+    public EnchantmentStorageBuilder() {
     }
 
-    public EnchantmentStorageBuilder(final Map<String, Object> map)
-    {
-        for (final Map.Entry<String, Object> entry : map.entrySet())
-        {
-            if ("==".equals(entry.getKey()))
-            {
+    public EnchantmentStorageBuilder(final Map<String, Object> map) {
+        for (final Map.Entry<String, Object> entry : map.entrySet()) {
+            if ("==".equals(entry.getKey())) {
                 continue;
             }
             this.enchants.put(Enchantment.getByName(entry.getKey()), ((Number) entry.getValue()).intValue());
@@ -34,73 +29,61 @@ public class EnchantmentStorageBuilder implements DataBuilder
     }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("enchants", this.enchants).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("enchants", this.enchants)
+                .toString();
     }
 
-    public Map<Enchantment, Integer> getEnchants()
-    {
+    public Map<Enchantment, Integer> getEnchants() {
         return this.enchants;
     }
 
-    public EnchantmentStorageBuilder enchant(final Map<Enchantment, Integer> enchants)
-    {
+    public EnchantmentStorageBuilder enchant(final Map<Enchantment, Integer> enchants) {
         this.enchants = enchants;
         return this;
     }
 
-    public EnchantmentStorageBuilder enchant(final Enchantment enchantment, final int power)
-    {
+    public EnchantmentStorageBuilder enchant(final Enchantment enchantment, final int power) {
         this.enchants.put(enchantment, power);
         return this;
     }
 
-    public EnchantmentStorageBuilder enchant(final Enchantment enchantment)
-    {
+    public EnchantmentStorageBuilder enchant(final Enchantment enchantment) {
         this.enchant(enchantment, 1);
         return this;
     }
 
-    public EnchantmentStorageBuilder unEnchant(final Enchantment enchantment)
-    {
+    public EnchantmentStorageBuilder unEnchant(final Enchantment enchantment) {
         this.enchants.remove(enchantment);
         return this;
     }
 
-    public EnchantmentStorageBuilder clear()
-    {
+    public EnchantmentStorageBuilder clear() {
         this.enchants.clear();
         return this;
     }
 
     @Override
-    public void apply(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof EnchantmentStorageMeta))
-        {
+    public void apply(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof EnchantmentStorageMeta)) {
             return;
         }
         final EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemMeta;
-        if (meta.hasStoredEnchants())
-        {
+        if (meta.hasStoredEnchants()) {
             final Iterable<Enchantment> enchs = new HashSet<>(meta.getStoredEnchants().keySet());
-            for (final Enchantment ench : enchs)
-            {
+            for (final Enchantment ench : enchs) {
                 meta.removeStoredEnchant(ench);
             }
         }
-        for (final Map.Entry<Enchantment, Integer> entry : this.enchants.entrySet())
-        {
+        for (final Map.Entry<Enchantment, Integer> entry : this.enchants.entrySet()) {
             meta.addStoredEnchant(entry.getKey(), entry.getValue(), true);
         }
     }
 
     @Override
-    public EnchantmentStorageBuilder use(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof EnchantmentStorageMeta))
-        {
+    public EnchantmentStorageBuilder use(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof EnchantmentStorageMeta)) {
             return null;
         }
         final EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemMeta;
@@ -109,18 +92,15 @@ public class EnchantmentStorageBuilder implements DataBuilder
     }
 
     @Override
-    public Map<String, Object> serialize()
-    {
+    public Map<String, Object> serialize() {
         final SerializationBuilder b = SerializationBuilder.start(this.enchants.size());
-        for (final Map.Entry<Enchantment, Integer> entry : this.enchants.entrySet())
-        {
+        for (final Map.Entry<Enchantment, Integer> entry : this.enchants.entrySet()) {
             b.append(entry.getKey(), entry.getValue());
         }
         return b.build();
     }
 
-    public static EnchantmentStorageBuilder start()
-    {
+    public static EnchantmentStorageBuilder start() {
         return new EnchantmentStorageBuilder();
     }
 }

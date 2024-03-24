@@ -14,126 +14,105 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-@SerializableAs("RC_BookMeta")
-public class BookDataBuilder implements DataBuilder
-{
-    private String title;
-    private String author;
+@SerializableAs("Enigma_BookMeta")
+public class BookDataBuilder implements DataBuilder {
+    private String       title;
+    private String       author;
     private List<String> pages = new ArrayList<>(10);
 
 
-    public BookDataBuilder()
-    {
+    public BookDataBuilder() {
     }
 
     @SuppressWarnings("unchecked")
-    public BookDataBuilder(final Map<String, Object> map)
-    {
+    public BookDataBuilder(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
         this.title = w.getString("title");
         this.author = w.getString("author");
         this.pages = w.getTypedObject("pages", new ArrayList<String>(3));
     }
 
-    public BookDataBuilder title(final String title)
-    {
+    public BookDataBuilder title(final String title) {
         this.title = title;
         return this;
     }
 
-    public BookDataBuilder author(final String author)
-    {
+    public BookDataBuilder author(final String author) {
         this.author = author;
         return this;
     }
 
-    public BookDataBuilder newPage(final String page)
-    {
+    public BookDataBuilder newPage(final String page) {
         this.pages.add(page);
         return this;
     }
 
-    public BookDataBuilder newPage(final String... pages)
-    {
+    public BookDataBuilder newPage(final String... pages) {
         Collections.addAll(this.pages, pages);
         return this;
     }
 
-    public BookDataBuilder newPage(final Collection<String> pages)
-    {
+    public BookDataBuilder newPage(final Collection<String> pages) {
         this.pages.addAll(pages);
         return this;
     }
 
-    public BookDataBuilder newPage(final int index, final String page)
-    {
+    public BookDataBuilder newPage(final int index, final String page) {
         this.pages.add(index, page);
         return this;
     }
 
-    public BookDataBuilder newPage(final int index, final String... pages)
-    {
+    public BookDataBuilder newPage(final int index, final String... pages) {
         return this.newPage(index, Arrays.asList(pages));
     }
 
-    public BookDataBuilder newPage(final int index, final Collection<String> pages)
-    {
+    public BookDataBuilder newPage(final int index, final Collection<String> pages) {
         this.pages.addAll(index, pages);
         return this;
     }
 
-    public BookDataBuilder setPage(final int index, final String page)
-    {
+    public BookDataBuilder setPage(final int index, final String page) {
         this.pages.set(index, page);
         return this;
     }
 
-    public BookDataBuilder removePage(final int index)
-    {
+    public BookDataBuilder removePage(final int index) {
         this.pages.remove(index);
         return this;
     }
 
-    public BookDataBuilder removePage(final String page)
-    {
+    public BookDataBuilder removePage(final String page) {
         this.pages.remove(page);
         return this;
     }
 
-    public BookDataBuilder removePage(final String... pages)
-    {
+    public BookDataBuilder removePage(final String... pages) {
         return this.removePage(Arrays.asList(pages));
     }
 
-    public BookDataBuilder removePage(final Collection<String> pages)
-    {
+    public BookDataBuilder removePage(final Collection<String> pages) {
         this.pages.removeAll(pages);
         return this;
     }
 
-    public BookDataBuilder clearPages()
-    {
+    public BookDataBuilder clearPages() {
         this.pages.clear();
         return this;
     }
 
-    public BookDataBuilder clearTitle()
-    {
+    public BookDataBuilder clearTitle() {
         this.title = null;
         return this;
     }
 
-    public BookDataBuilder clearAuthor()
-    {
+    public BookDataBuilder clearAuthor() {
         this.author = null;
         return this;
     }
 
     @Override
-    public void apply(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof BookMeta))
-        {
+    public void apply(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof BookMeta)) {
             return;
         }
         final BookMeta meta = (BookMeta) itemMeta;
@@ -143,10 +122,8 @@ public class BookDataBuilder implements DataBuilder
     }
 
     @Override
-    public BookDataBuilder use(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof BookMeta))
-        {
+    public BookDataBuilder use(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof BookMeta)) {
             return null;
         }
         final BookMeta meta = (BookMeta) itemMeta;
@@ -175,14 +152,16 @@ public class BookDataBuilder implements DataBuilder
 //    }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("title", this.title).append("author", this.author).append("pages", this.pages).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("title", this.title)
+                .append("author", this.author)
+                .append("pages", this.pages)
+                .toString();
     }
 
     @Override
-    public Map<String, Object> serialize()
-    {
+    public Map<String, Object> serialize() {
         final SerializationBuilder b = SerializationBuilder.start(3);
         b.append("title", this.title);
         b.append("author", this.author);
@@ -190,8 +169,7 @@ public class BookDataBuilder implements DataBuilder
         return b.build();
     }
 
-    public static BookDataBuilder start()
-    {
+    public static BookDataBuilder start() {
         return new BookDataBuilder();
     }
 }

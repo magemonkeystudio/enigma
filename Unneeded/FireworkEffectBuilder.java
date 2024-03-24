@@ -11,50 +11,43 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 
-@SerializableAs("RC_FireworkEffectMeta")
-public class FireworkEffectBuilder implements DataBuilder
-{
+@SerializableAs("Enigma_FireworkEffectMeta")
+public class FireworkEffectBuilder implements DataBuilder {
     private FireworkEffect effect;
 
-    public FireworkEffectBuilder()
-    {
+    public FireworkEffectBuilder() {
     }
 
     @SuppressWarnings("unchecked")
-    public FireworkEffectBuilder(final Map<String, Object> map)
-    {
+    public FireworkEffectBuilder(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
         this.effect = Utils.simpleDeserializeEffect(w.<Map<Object, Object>>getTypedObject("effect"));
     }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("effect", this.effect).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("effect", this.effect)
+                .toString();
     }
 
-    public FireworkEffect getEffect()
-    {
+    public FireworkEffect getEffect() {
         return this.effect;
     }
 
-    public FireworkEffectBuilder effect(final FireworkEffect effect)
-    {
+    public FireworkEffectBuilder effect(final FireworkEffect effect) {
         this.effect = effect;
         return this;
     }
 
-    public FireworkEffectBuilder effect(final FireworkEffect.Builder effect)
-    {
+    public FireworkEffectBuilder effect(final FireworkEffect.Builder effect) {
         this.effect = effect.build();
         return this;
     }
 
     @Override
-    public void apply(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof FireworkEffectMeta))
-        {
+    public void apply(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof FireworkEffectMeta)) {
             return;
         }
         final FireworkEffectMeta meta = (FireworkEffectMeta) itemMeta;
@@ -62,10 +55,8 @@ public class FireworkEffectBuilder implements DataBuilder
     }
 
     @Override
-    public FireworkEffectBuilder use(final ItemMeta itemMeta)
-    {
-        if (! (itemMeta instanceof FireworkEffectMeta))
-        {
+    public FireworkEffectBuilder use(final ItemMeta itemMeta) {
+        if (!(itemMeta instanceof FireworkEffectMeta)) {
             return null;
         }
         final FireworkEffectMeta meta = (FireworkEffectMeta) itemMeta;
@@ -74,15 +65,13 @@ public class FireworkEffectBuilder implements DataBuilder
     }
 
     @Override
-    public Map<String, Object> serialize()
-    {
+    public Map<String, Object> serialize() {
         final SerializationBuilder b = SerializationBuilder.start(1);
         b.append("effect", Utils.simpleSerializeEffect(this.effect));
         return b.build();
     }
 
-    public static FireworkEffectBuilder start()
-    {
+    public static FireworkEffectBuilder start() {
         return new FireworkEffectBuilder();
     }
 }

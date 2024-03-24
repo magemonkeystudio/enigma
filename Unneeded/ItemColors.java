@@ -1,7 +1,6 @@
 package com.gotofinal.diggler.chests.utils;
 
-public final class ItemColors
-{
+public final class ItemColors {
     public static final byte WHITE      = 0xF;
     public static final byte ORANGE     = 0xE;
     public static final byte MAGENTA    = 0xD;
@@ -19,7 +18,6 @@ public final class ItemColors
     public static final byte RED        = 0x1;
     public static final byte BLACK      = 0x0;
 
-    private ItemColors()
-    {
+    private ItemColors() {
     }
 }

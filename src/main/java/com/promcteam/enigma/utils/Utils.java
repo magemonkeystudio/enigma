@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests.utils;
+package com.promcteam.enigma.utils;
 
 import me.travja.darkrise.core.legacy.util.DeserializationWorker;
 import me.travja.darkrise.core.legacy.util.SerializationBuilder;
@@ -130,12 +130,18 @@ public final class Utils {
         }
         final DeserializationWorker w = DeserializationWorker.startUnsafe(map);
 
-        final Type type = w.getEnum("type", Type.BALL);
-        final boolean trail = w.getBoolean("trail");
-        final boolean flicker = w.getBoolean("flicker");
-        final List<Color> colors = simpleDeserializeColors(w.getTypedObject("colors"));
+        final Type        type       = w.getEnum("type", Type.BALL);
+        final boolean     trail      = w.getBoolean("trail");
+        final boolean     flicker    = w.getBoolean("flicker");
+        final List<Color> colors     = simpleDeserializeColors(w.getTypedObject("colors"));
         final List<Color> fadeColors = simpleDeserializeColors(w.getTypedObject("fadeColors"));
-        return FireworkEffect.builder().with(type).trail(trail).flicker(flicker).withColor(colors).withFade(fadeColors).build();
+        return FireworkEffect.builder()
+                .with(type)
+                .trail(trail)
+                .flicker(flicker)
+                .withColor(colors)
+                .withFade(fadeColors)
+                .build();
     }
 
     public static List<FireworkEffect> simpleDeserializeEffects(final Collection<Map<Object, Object>> list) {

@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests.utils;
+package com.promcteam.enigma.utils;
 
 import org.apache.commons.lang.Validate;
 
@@ -29,7 +29,10 @@ public final class RandomUtils {
         return getRand(random, coll, target, amount, true);
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll, final E target, final int amount, final boolean noRepeat) {
+    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll,
+                                                         final E target,
+                                                         final int amount,
+                                                         final boolean noRepeat) {
         return getRand(random, coll, target, amount, noRepeat);
     }
 
@@ -86,11 +89,18 @@ public final class RandomUtils {
         return coll.get(random.nextInt(coll.size()));
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Random random, final Collection<T> coll, final E target, final int amount) {
+    public static <T, E extends Collection<T>> E getRand(final Random random,
+                                                         final Collection<T> coll,
+                                                         final E target,
+                                                         final int amount) {
         return getRand(random, coll, target, amount, true);
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Random random, final Collection<T> coll, final E target, int amount, final boolean noRepeat) {
+    public static <T, E extends Collection<T>> E getRand(final Random random,
+                                                         final Collection<T> coll,
+                                                         final E target,
+                                                         int amount,
+                                                         final boolean noRepeat) {
         if (coll.isEmpty()) {
             return target;
         }
@@ -149,7 +159,8 @@ public final class RandomUtils {
         return getRandFloat(random, a, b);
     }
 
-    public static long getRandLong(final Random random, final long min, final long max) throws IllegalArgumentException {
+    public static long getRandLong(final Random random, final long min, final long max) throws
+            IllegalArgumentException {
         if (min == max) {
             return max;
         }
@@ -165,7 +176,8 @@ public final class RandomUtils {
         return (int) getRandLong(random, min, max);
     }
 
-    public static double getRandDouble(final Random random, final double min, final double max) throws IllegalArgumentException {
+    public static double getRandDouble(final Random random, final double min, final double max) throws
+            IllegalArgumentException {
         if (Double.compare(min, max) == 0) {
             return max;
         }
@@ -173,7 +185,8 @@ public final class RandomUtils {
         return (random.nextDouble() * (max - min)) + min;
     }
 
-    public static float getRandFloat(final Random random, final float min, final float max) throws IllegalArgumentException {
+    public static float getRandFloat(final Random random, final float min, final float max) throws
+            IllegalArgumentException {
         if (Float.compare(min, max) == 0) {
             return max;
         }
@@ -692,7 +705,9 @@ public final class RandomUtils {
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
      */
-    public static DoubleStream doubles(final long streamSize, final double randomNumberOrigin, final double randomNumberBound) {
+    public static DoubleStream doubles(final long streamSize,
+                                       final double randomNumberOrigin,
+                                       final double randomNumberBound) {
         return random.doubles(streamSize, randomNumberOrigin, randomNumberBound);
     }
 

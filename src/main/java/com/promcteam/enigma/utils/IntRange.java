@@ -1,4 +1,4 @@
-package com.gotofinal.diggler.chests.utils;
+package com.promcteam.enigma.utils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -6,8 +6,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * Class defining range in ints, may be used to validate numbers.
  */
-public class IntRange
-{
+public class IntRange {
     /**
      * Range from 0 to 0.
      */
@@ -26,8 +25,7 @@ public class IntRange
      * @param min min value of range.
      * @param max max value of range.
      */
-    public IntRange(final int min, final int max)
-    {
+    public IntRange(final int min, final int max) {
         this.min = min;
         this.max = max;
     }
@@ -35,32 +33,28 @@ public class IntRange
     /**
      * @return min value in range.
      */
-    public int getMin()
-    {
+    public int getMin() {
         return this.min;
     }
 
     /**
      * @return max value in range.
      */
-    public int getMax()
-    {
+    public int getMax() {
         return this.max;
     }
 
     /**
      * @return random value in range.
      */
-    public int getRandom()
-    {
+    public int getRandom() {
         return RandomUtils.getRandInt(this.min, this.max);
     }
 
     /**
      * @return size of range. (max - min + 1)
      */
-    public long size()
-    {
+    public long size() {
         return (((long) this.max - (long) this.min) + 1L);
     }
 
@@ -68,11 +62,9 @@ public class IntRange
      * Check if given number is in range.
      *
      * @param i number to check.
-     *
      * @return true if it is in range
      */
-    public boolean isIn(final int i)
-    {
+    public boolean isIn(final int i) {
         return (i >= this.min) && (i <= this.max);
     }
 
@@ -83,17 +75,13 @@ public class IntRange
      * {@code else -> i}
      *
      * @param i number to validate.
-     *
      * @return closest number in range.
      */
-    public int getIn(final int i)
-    {
-        if (i > this.max)
-        {
+    public int getIn(final int i) {
+        if (i > this.max) {
             return this.max;
         }
-        if (i < this.min)
-        {
+        if (i < this.min) {
             return this.min;
         }
         return i;
@@ -107,35 +95,28 @@ public class IntRange
      *
      * @param i   number to validate.
      * @param def default value.
-     *
      * @return given number or default value.
      */
-    public int getIn(final int i, final int def)
-    {
-        if (! this.isIn(i))
-        {
+    public int getIn(final int i, final int def) {
+        if (!this.isIn(i)) {
             return def;
         }
         return i;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = this.min;
         result = (31 * result) + this.max;
         return result;
     }
 
     @Override
-    public boolean equals(final Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(final Object o) {
+        if (this == o) {
             return true;
         }
-        if (! (o instanceof IntRange))
-        {
+        if (!(o instanceof IntRange)) {
             return false;
         }
 
@@ -146,20 +127,20 @@ public class IntRange
     }
 
     @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("min", this.min).append("max", this.max).toString();
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("min", this.min)
+                .append("max", this.max)
+                .toString();
     }
 
     /**
      * Create range with only gived value in range.
      *
      * @param num min and max of range.
-     *
      * @return range with only one value in range.
      */
-    public static IntRange fixed(final int num)
-    {
+    public static IntRange fixed(final int num) {
         return new IntRange(num, num);
     }
 }
