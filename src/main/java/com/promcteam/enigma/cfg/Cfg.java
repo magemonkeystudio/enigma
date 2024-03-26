@@ -1,10 +1,10 @@
 package com.promcteam.enigma.cfg;
 
+import com.promcteam.codex.legacy.item.FireworkBuilder;
 import com.promcteam.enigma.*;
+import com.promcteam.enigma.util.BlockType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.promcteam.risecore.legacy.util.item.FireworkBuilder;
-import com.promcteam.risecore.util.BlockType;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

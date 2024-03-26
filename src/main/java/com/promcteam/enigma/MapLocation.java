@@ -1,8 +1,8 @@
 package com.promcteam.enigma;
 
 
+import com.promcteam.codex.util.SerializationBuilder;
 import com.promcteam.risecore.legacy.util.DeserializationWorker;
-import com.promcteam.risecore.legacy.util.SerializationBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.block.Block;

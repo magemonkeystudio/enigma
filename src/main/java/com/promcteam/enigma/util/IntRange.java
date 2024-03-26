@@ -1,4 +1,4 @@
-package com.promcteam.enigma.utils;
+package com.promcteam.enigma.util;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

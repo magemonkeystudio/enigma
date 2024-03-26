@@ -1,7 +1,8 @@
 package com.promcteam.enigma;
 
+import com.promcteam.codex.legacy.item.*;
 import com.promcteam.enigma.cfg.Cfg;
-import com.promcteam.risecore.legacy.util.item.*;
+import com.promcteam.enigma.util.BlockLocation;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -10,8 +11,10 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +45,7 @@ public class Enigma extends JavaPlugin {
         ConfigurationSerialization.registerClass(MapBuilder.class, "Enigma_MapMeta");
         ConfigurationSerialization.registerClass(ItemBuilder.class, "Enigma_Item");
 
+        ConfigurationSerialization.registerClass(BlockLocation.class, "Enigma_BlockLocation");
         ConfigurationSerialization.registerClass(WorldChests.class, "Enigma_WorldChests");
         ConfigurationSerialization.registerClass(MapLocation.class, "Enigma_MapLocation");
 
@@ -56,10 +60,13 @@ public class Enigma extends JavaPlugin {
         runTask(() -> worlds.values().forEach(WorldChests::addMissingChests));
     }
 
-    public static boolean isInRegion(final Location location) {
+    public static boolean isInRegion(@NotNull final Location location) {
         WorldGuardPlatform platform = WorldGuard.getInstance().getPlatform(); // Commented are <1.13 api things
+
+        World world = location.getWorld();
+        if (world == null) return false;
         RegionManager manager = platform.getRegionContainer()// WorldGuardPlugin.inst().getRegionContainer()
-                .get(BukkitAdapter.adapt(location.getWorld()));
+                .get(BukkitAdapter.adapt(world));
 
         return manager != null && manager//.getApplicableRegions(location).size() > 0;
                 .getApplicableRegions(BlockVector3.at(location.getX(), location.getY(), location.getZ())).size() > 0;

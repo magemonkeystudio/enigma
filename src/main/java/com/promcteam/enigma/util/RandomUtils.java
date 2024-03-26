@@ -1,4 +1,4 @@
-package com.promcteam.enigma.utils;
+package com.promcteam.enigma.util;
 
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;

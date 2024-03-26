@@ -1,4 +1,4 @@
-package com.promcteam.enigma.utils;
+package com.promcteam.enigma.util;
 
 /**
  * Class with methods to create long from two ints, and get ints from long.

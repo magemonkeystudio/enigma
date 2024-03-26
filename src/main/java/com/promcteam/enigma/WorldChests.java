@@ -2,15 +2,15 @@ package com.promcteam.enigma;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.promcteam.codex.legacy.item.FireworkBuilder;
+import com.promcteam.codex.util.SerializationBuilder;
 import com.promcteam.enigma.cfg.Cfg;
-import com.promcteam.enigma.utils.IntRange;
-import com.promcteam.enigma.utils.IntsToLong;
-import lombok.Getter;
+import com.promcteam.enigma.util.BlockLocation;
+import com.promcteam.enigma.util.BlockType;
+import com.promcteam.enigma.util.IntRange;
+import com.promcteam.enigma.util.IntsToLong;
 import com.promcteam.risecore.legacy.util.DeserializationWorker;
-import com.promcteam.risecore.legacy.util.SerializationBuilder;
-import com.promcteam.risecore.legacy.util.item.FireworkBuilder;
-import com.promcteam.risecore.util.BlockLocation;
-import com.promcteam.risecore.util.BlockType;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.Bukkit;
@@ -43,6 +43,7 @@ public class WorldChests implements ConfigurationSerializable {
     private final transient IntRange                    rx;
     private final transient IntRange                    rz;
 
+    @SuppressWarnings("unchecked")
     public WorldChests(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
         this.world = Bukkit.getWorld(w.getString("world"));
@@ -52,7 +53,6 @@ public class WorldChests implements ConfigurationSerializable {
         this.blockType = BlockType.fromConfigString(w.getString("blockType"));
         this.chests = w.getHashSet("chests");
         this.chestsToSpawn = ArrayListMultimap.create(this.maxChests / 4, 5);
-        //noinspection unchecked
         boolean empty = false;
         try {
             if (((LinkedHashMap<Long, ArrayList<Object>>) map.get("chestsToSpawn")).isEmpty())
@@ -62,9 +62,9 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (!empty) {
-            final LinkedHashMap<Long, ArrayList<MapLocation>> chMap =
-                    (LinkedHashMap<Long, ArrayList<MapLocation>>) map.get("chestsToSpawn");
-            for (final Entry<Long, ArrayList<MapLocation>> entry : chMap.entrySet()) {
+            final LinkedHashMap<Long, List<MapLocation>> chMap =
+                    (LinkedHashMap<Long, List<MapLocation>>) map.get("chestsToSpawn");
+            for (final Entry<Long, List<MapLocation>> entry : chMap.entrySet()) {
                 final Long key;
                 if (entry.getKey() instanceof Number) {
                     key = ((Number) entry.getKey()).longValue();

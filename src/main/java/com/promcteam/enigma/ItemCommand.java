@@ -1,15 +1,14 @@
 package com.promcteam.enigma;
 
-import java.util.Iterator;
-import java.util.Map;
-
+import com.promcteam.codex.util.SerializationBuilder;
 import com.promcteam.risecore.legacy.util.DeserializationWorker;
-import com.promcteam.risecore.legacy.util.SerializationBuilder;
+import org.apache.commons.lang3.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-import org.apache.commons.lang3.Validate;
+import java.util.Iterator;
+import java.util.Map;
 
 @SerializableAs("Enigma_ItemCommand")
 public class ItemCommand implements ConfigurationSerializable {
