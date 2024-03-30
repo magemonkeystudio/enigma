@@ -33,27 +33,15 @@ public class Enigma extends JavaPlugin {
         return worlds.get(world);
     }
 
-    {
-        Enigma.instance = this;
-        ConfigurationSerialization.registerClass(EnchantmentStorageBuilder.class, "Enigma_EnchantmentStorageMeta");
-        ConfigurationSerialization.registerClass(FireworkEffectBuilder.class, "Enigma_FireworkEffectMeta");
-        ConfigurationSerialization.registerClass(LeatherArmorBuilder.class, "Enigma_LeatherArmorMeta");
-        ConfigurationSerialization.registerClass(PotionDataBuilder.class, "Enigma_PotionMeta");
-        ConfigurationSerialization.registerClass(FireworkBuilder.class, "Enigma_FireworkMeta");
-        ConfigurationSerialization.registerClass(BookDataBuilder.class, "Enigma_BookMeta");
-        ConfigurationSerialization.registerClass(SkullBuilder.class, "Enigma_SkullMeta");
-        ConfigurationSerialization.registerClass(MapBuilder.class, "Enigma_MapMeta");
-        ConfigurationSerialization.registerClass(ItemBuilder.class, "Enigma_Item");
+    @Override
+    public void onEnable() {
+        instance = this;
 
         ConfigurationSerialization.registerClass(BlockLocation.class, "Enigma_BlockLocation");
         ConfigurationSerialization.registerClass(WorldChests.class, "Enigma_WorldChests");
         ConfigurationSerialization.registerClass(MapLocation.class, "Enigma_MapLocation");
-
         ConfigurationSerialization.registerClass(ItemCommand.class, "Enigma_ItemCommand");
-    }
 
-    @Override
-    public void onEnable() {
         Cfg.init();
         WorldListener.init();
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, Cfg::save, 1, Cfg.getAutoSaveTime());
