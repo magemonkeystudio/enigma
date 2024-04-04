@@ -1,5 +1,5 @@
 name: ${project.name}
-main: com.promcteam.enigma.Enigma
+main: studio.magemonkey.enigma.Enigma
 authors: [ Travja, GoFlish ]
 version: ${project.version}
 depend: [ Codex ]

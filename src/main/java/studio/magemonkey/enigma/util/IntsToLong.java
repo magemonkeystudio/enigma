@@ -1,4 +1,4 @@
-package com.promcteam.enigma.util;
+package studio.magemonkey.enigma.util;
 
 /**
  * Class with methods to create long from two ints, and get ints from long.

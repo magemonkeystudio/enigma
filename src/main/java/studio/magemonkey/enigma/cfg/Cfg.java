@@ -1,8 +1,8 @@
-package com.promcteam.enigma.cfg;
+package studio.magemonkey.enigma.cfg;
 
-import com.promcteam.codex.legacy.item.FireworkBuilder;
-import com.promcteam.enigma.*;
-import com.promcteam.enigma.util.BlockType;
+import studio.magemonkey.codex.legacy.item.FireworkBuilder;
+import studio.magemonkey.enigma.*;
+import studio.magemonkey.enigma.util.BlockType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bukkit.*;
@@ -20,10 +20,10 @@ import java.util.concurrent.TimeUnit;
 @NoArgsConstructor
 public final class Cfg {
     @Getter
-    private static Collection<ItemCommand>     commands        =
+    private static Collection<ItemCommand>     commands  =
             Collections.singletonList(new ItemCommand(CommandType.CONSOLE, "say {player} found chest!", 0));
     @Getter
-    private static Collection<FireworkBuilder> fireworks       = Collections.singletonList(FireworkBuilder.start()
+    private static Collection<FireworkBuilder> fireworks = Collections.singletonList(FireworkBuilder.start()
             .effect(FireworkEffect.builder().withFlicker().withColor(Color.AQUA))
             .power(2));
     @Getter

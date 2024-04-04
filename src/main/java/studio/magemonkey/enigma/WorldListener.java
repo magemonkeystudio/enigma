@@ -1,4 +1,4 @@
-package com.promcteam.enigma;
+package studio.magemonkey.enigma;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;

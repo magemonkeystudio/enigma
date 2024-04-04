@@ -1,7 +1,7 @@
-package com.promcteam.enigma.util;
+package studio.magemonkey.enigma.util;
 
-import com.promcteam.codex.util.SerializationBuilder;
-import com.promcteam.risecore.legacy.util.DeserializationWorker;
+import studio.magemonkey.codex.util.SerializationBuilder;
+import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

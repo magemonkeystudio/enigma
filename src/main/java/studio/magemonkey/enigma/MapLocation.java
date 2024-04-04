@@ -1,8 +1,8 @@
-package com.promcteam.enigma;
+package studio.magemonkey.enigma;
 
 
-import com.promcteam.codex.util.SerializationBuilder;
-import com.promcteam.risecore.legacy.util.DeserializationWorker;
+import studio.magemonkey.codex.util.SerializationBuilder;
+import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.block.Block;

@@ -1,4 +1,4 @@
-package com.promcteam.enigma.util;
+package studio.magemonkey.enigma.util;
 
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;

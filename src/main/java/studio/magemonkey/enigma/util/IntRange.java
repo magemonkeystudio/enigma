@@ -1,4 +1,4 @@
-package com.promcteam.enigma.util;
+package studio.magemonkey.enigma.util;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

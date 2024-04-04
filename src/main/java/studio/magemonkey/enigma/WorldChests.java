@@ -1,15 +1,15 @@
-package com.promcteam.enigma;
+package studio.magemonkey.enigma;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.promcteam.codex.legacy.item.FireworkBuilder;
-import com.promcteam.codex.util.SerializationBuilder;
-import com.promcteam.enigma.cfg.Cfg;
-import com.promcteam.enigma.util.BlockLocation;
-import com.promcteam.enigma.util.BlockType;
-import com.promcteam.enigma.util.IntRange;
-import com.promcteam.enigma.util.IntsToLong;
-import com.promcteam.risecore.legacy.util.DeserializationWorker;
+import studio.magemonkey.codex.legacy.item.FireworkBuilder;
+import studio.magemonkey.codex.util.SerializationBuilder;
+import studio.magemonkey.enigma.cfg.Cfg;
+import studio.magemonkey.enigma.util.BlockLocation;
+import studio.magemonkey.enigma.util.BlockType;
+import studio.magemonkey.enigma.util.IntRange;
+import studio.magemonkey.enigma.util.IntsToLong;
+import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

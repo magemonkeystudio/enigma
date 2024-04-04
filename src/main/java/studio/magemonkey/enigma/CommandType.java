@@ -1,4 +1,4 @@
-package com.promcteam.enigma;
+package studio.magemonkey.enigma;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;

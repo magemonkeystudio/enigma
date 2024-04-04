@@ -1,8 +1,7 @@
-package com.promcteam.enigma;
+package studio.magemonkey.enigma;
 
-import com.promcteam.codex.legacy.item.*;
-import com.promcteam.enigma.cfg.Cfg;
-import com.promcteam.enigma.util.BlockLocation;
+import studio.magemonkey.enigma.cfg.Cfg;
+import studio.magemonkey.enigma.util.BlockLocation;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
