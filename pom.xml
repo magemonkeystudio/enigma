@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>enigma</artifactId>
-    <version>1.0.0-R0.1-SNAPSHOT</version>
+    <version>1.0.0-R1</version>
     <name>Enigma</name>
     <description>A random chest generation plugin</description>
 
