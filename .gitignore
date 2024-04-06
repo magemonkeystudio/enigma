@@ -1,5 +1,9 @@
 gh-pages/
 
+*.iml
+log.txt
+settings.xml
+
 ### Maven ###
 target/
 pom.xml.tag
