@@ -3,6 +3,7 @@ gh-pages/
 *.iml
 log.txt
 settings.xml
+toolchains.xml
 
 ### Maven ###
 target/
