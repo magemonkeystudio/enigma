@@ -1,33 +1,28 @@
-package com.gotofinal.diggler.chests;
+package studio.magemonkey.enigma;
 
-import com.gotofinal.diggler.chests.cfg.Cfg;
-//import com.sk89q.worldedit.bukkit.BukkitAdapter;
-//import com.sk89q.worldedit.math.BlockVector3;
-//import com.sk89q.worldguard.WorldGuard;
+import studio.magemonkey.enigma.cfg.Cfg;
+import studio.magemonkey.enigma.util.BlockLocation;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-//import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import me.travja.darkrise.core.legacy.util.item.*;
-//import me.travja.darkrise.core.util.BlockLocation;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Chests extends JavaPlugin {
-    private static Chests instance;
+public class Enigma extends JavaPlugin {
+    @Getter
+    private static       Enigma                   instance;
+    @Getter
     private static final Map<String, WorldChests> worlds = new HashMap<>(3);
-
-    public static Chests getInstance() {
-        return instance;
-    }
 
     public static void addWorld(final WorldChests world) {
         worlds.put(world.getWorld().getName(), world);
@@ -37,40 +32,28 @@ public class Chests extends JavaPlugin {
         return worlds.get(world);
     }
 
-    public static Map<String, WorldChests> getWorlds() {
-        return worlds;
-    }
-
-    {
-        Chests.instance = this;
-        ConfigurationSerialization.registerClass(EnchantmentStorageBuilder.class, "RC_EnchantmentStorageMeta");
-        ConfigurationSerialization.registerClass(FireworkEffectBuilder.class, "RC_FireworkEffectMeta");
-        ConfigurationSerialization.registerClass(LeatherArmorBuilder.class, "RC_LeatherArmorMeta");
-        ConfigurationSerialization.registerClass(PotionDataBuilder.class, "RC_PotionMeta");
-        ConfigurationSerialization.registerClass(FireworkBuilder.class, "RC_FireworkMeta");
-        ConfigurationSerialization.registerClass(BookDataBuilder.class, "RC_BookMeta");
-        ConfigurationSerialization.registerClass(SkullBuilder.class, "RC_SkullMeta");
-        ConfigurationSerialization.registerClass(MapBuilder.class, "RC_MapMeta");
-        ConfigurationSerialization.registerClass(ItemBuilder.class, "RC_Item");
-
-        ConfigurationSerialization.registerClass(WorldChests.class, "RC_WorldChests");
-        ConfigurationSerialization.registerClass(MapLocation.class, "RC_MapLocation");
-
-        ConfigurationSerialization.registerClass(ItemCommand.class, "RC_ItemCommand");
-    }
-
     @Override
     public void onEnable() {
+        instance = this;
+
+        ConfigurationSerialization.registerClass(BlockLocation.class, "Enigma_BlockLocation");
+        ConfigurationSerialization.registerClass(WorldChests.class, "Enigma_WorldChests");
+        ConfigurationSerialization.registerClass(MapLocation.class, "Enigma_MapLocation");
+        ConfigurationSerialization.registerClass(ItemCommand.class, "Enigma_ItemCommand");
+
         Cfg.init();
         WorldListener.init();
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, Cfg::save, 1, Cfg.getAutoSaveTime());
         runTask(() -> worlds.values().forEach(WorldChests::addMissingChests));
     }
 
-    public static boolean isInRegion(final Location location) {
+    public static boolean isInRegion(@NotNull final Location location) {
         WorldGuardPlatform platform = WorldGuard.getInstance().getPlatform(); // Commented are <1.13 api things
+
+        World world = location.getWorld();
+        if (world == null) return false;
         RegionManager manager = platform.getRegionContainer()// WorldGuardPlugin.inst().getRegionContainer()
-                .get(BukkitAdapter.adapt(location.getWorld()));
+                .get(BukkitAdapter.adapt(world));
 
         return manager != null && manager//.getApplicableRegions(location).size() > 0;
                 .getApplicableRegions(BlockVector3.at(location.getX(), location.getY(), location.getZ())).size() > 0;

@@ -1,247 +1,197 @@
-package com.gotofinal.diggler.chests.utils;
+package studio.magemonkey.enigma.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import lombok.Getter;
+import org.apache.commons.lang3.Validate;
+
+import java.util.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
-import org.apache.commons.lang.Validate;
-
-public final class RandomUtils
-{
+public final class RandomUtils {
+    @Getter
     private static final Random random = new Random();
 
-    private RandomUtils()
-    {
-    }
-
-    public static Random getRandom()
-    {
-        return random;
-    }
-
-    public static <T> T getRand(final T[] array)
-    {
+    public static <T> T getRand(final T[] array) {
         return getRand(random, array);
     }
 
-    public static <T> T getRand(final List<T> coll)
-    {
+    public static <T> T getRand(final List<T> coll) {
         return getRand(random, coll);
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll, final E target, final int amount)
-    {
+    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll, final E target, final int amount) {
         return getRand(random, coll, target, amount, true);
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll, final E target, final int amount, final boolean noRepeat)
-    {
+    public static <T, E extends Collection<T>> E getRand(final Collection<T> coll,
+                                                         final E target,
+                                                         final int amount,
+                                                         final boolean noRepeat) {
         return getRand(random, coll, target, amount, noRepeat);
     }
 
-    public static <T> T getRand(final Collection<T> coll)
-    {
+    public static <T> T getRand(final Collection<T> coll) {
         return getRand(random, coll);
     }
 
-    public static long getRandLongSafe(final long a, final long b)
-    {
+    public static long getRandLongSafe(final long a, final long b) {
         return getRandLongSafe(random, a, b);
     }
 
-    public static int getRandIntSafe(final int a, final int b)
-    {
+    public static int getRandIntSafe(final int a, final int b) {
         return getRandIntSafe(random, a, b);
     }
 
-    public static double getRandDoubleSafe(final double a, final double b)
-    {
+    public static double getRandDoubleSafe(final double a, final double b) {
         return getRandDoubleSafe(random, a, b);
     }
 
-    public static float getRandFloatSafe(final float a, final float b)
-    {
+    public static float getRandFloatSafe(final float a, final float b) {
         return getRandFloatSafe(random, a, b);
     }
 
-    public static long getRandLong(final long min, final long max) throws IllegalArgumentException
-    {
+    public static long getRandLong(final long min, final long max) throws IllegalArgumentException {
         return getRandLong(random, min, max);
     }
 
-    public static int getRandInt(final int min, final int max) throws IllegalArgumentException
-    {
+    public static int getRandInt(final int min, final int max) throws IllegalArgumentException {
         return getRandInt(random, min, max);
     }
 
-    public static double getRandDouble(final double min, final double max) throws IllegalArgumentException
-    {
+    public static double getRandDouble(final double min, final double max) throws IllegalArgumentException {
         return getRandDouble(random, min, max);
     }
 
-    public static float getRandFloat(final float min, final float max) throws IllegalArgumentException
-    {
+    public static float getRandFloat(final float min, final float max) throws IllegalArgumentException {
         return getRandFloat(random, min, max);
     }
 
-    public static boolean getChance(final double chance)
-    {
+    public static boolean getChance(final double chance) {
         return getChance(random, chance);
     }
 
 
     // custom random
-    public static <T> T getRand(final Random random, final T[] array)
-    {
-        if (array.length == 0)
-        {
+    public static <T> T getRand(final Random random, final T[] array) {
+        if (array.length == 0) {
             return null;
         }
         return array[random.nextInt(array.length)];
     }
 
-    public static <T> T getRand(final Random random, final List<T> coll)
-    {
+    public static <T> T getRand(final Random random, final List<T> coll) {
         return coll.get(random.nextInt(coll.size()));
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Random random, final Collection<T> coll, final E target, final int amount)
-    {
+    public static <T, E extends Collection<T>> E getRand(final Random random,
+                                                         final Collection<T> coll,
+                                                         final E target,
+                                                         final int amount) {
         return getRand(random, coll, target, amount, true);
     }
 
-    public static <T, E extends Collection<T>> E getRand(final Random random, final Collection<T> coll, final E target, int amount, final boolean noRepeat)
-    {
-        if (coll.isEmpty())
-        {
+    public static <T, E extends Collection<T>> E getRand(final Random random,
+                                                         final Collection<T> coll,
+                                                         final E target,
+                                                         int amount,
+                                                         final boolean noRepeat) {
+        if (coll.isEmpty()) {
             return target;
         }
         final List<T> list = new ArrayList<>(coll);
-        if (noRepeat)
-        {
-            while (! list.isEmpty() && (amount-- > 0))
-            {
+        if (noRepeat) {
+            while (!list.isEmpty() && (amount-- > 0)) {
                 target.add(list.remove(random.nextInt(list.size())));
             }
-        }
-        else
-        {
-            while (! list.isEmpty() && (amount-- > 0))
-            {
+        } else {
+            while (!list.isEmpty() && (amount-- > 0)) {
                 target.add(list.get(random.nextInt(list.size())));
             }
         }
         return target;
     }
 
-    public static <T> T getRand(final Random random, final Collection<T> coll)
-    {
-        if (coll.isEmpty())
-        {
+    public static <T> T getRand(final Random random, final Collection<T> coll) {
+        if (coll.isEmpty()) {
             return null;
         }
 
         final int index = random.nextInt(coll.size());
-        if (coll instanceof List)
-        {
+        if (coll instanceof List) {
             return ((List<? extends T>) coll).get(index);
-        }
-        else
-        {
+        } else {
             final Iterator<? extends T> iter = coll.iterator();
-            for (int i = 0; i < index; i++)
-            {
+            for (int i = 0; i < index; i++) {
                 iter.next();
             }
             return iter.next();
         }
     }
 
-    public static long getRandLongSafe(final Random random, final long a, final long b)
-    {
-        if (a > b)
-        {
+    public static long getRandLongSafe(final Random random, final long a, final long b) {
+        if (a > b) {
             return getRandLong(random, b, a);
         }
         return getRandLong(random, a, b);
     }
 
-    public static int getRandIntSafe(final Random random, final int a, final int b)
-    {
+    public static int getRandIntSafe(final Random random, final int a, final int b) {
         return (int) getRandLongSafe(random, a, b);
     }
 
-    public static double getRandDoubleSafe(final Random random, final double a, final double b)
-    {
-        if (a > b)
-        {
+    public static double getRandDoubleSafe(final Random random, final double a, final double b) {
+        if (a > b) {
             return getRandDouble(random, b, a);
         }
         return getRandDouble(random, a, b);
     }
 
-    public static float getRandFloatSafe(final Random random, final float a, final float b)
-    {
-        if (a > b)
-        {
+    public static float getRandFloatSafe(final Random random, final float a, final float b) {
+        if (a > b) {
             return getRandFloat(random, b, a);
         }
         return getRandFloat(random, a, b);
     }
 
-    public static long getRandLong(final Random random, final long min, final long max) throws IllegalArgumentException
-    {
-        if (min == max)
-        {
+    public static long getRandLong(final Random random, final long min, final long max) throws
+            IllegalArgumentException {
+        if (min == max) {
             return max;
         }
         Validate.isTrue(max > min, "Max can't be smaller than min!");
         return (Math.abs(random.nextLong()) % ((max - min) + 1)) + min;
     }
 
-    public static int getRandInt(final Random random, final int min, final int max) throws IllegalArgumentException
-    {
-        if (min == max)
-        {
+    public static int getRandInt(final Random random, final int min, final int max) throws IllegalArgumentException {
+        if (min == max) {
             return max;
         }
         Validate.isTrue(max > min, "Max can't be smaller than min!");
         return (int) getRandLong(random, min, max);
     }
 
-    public static double getRandDouble(final Random random, final double min, final double max) throws IllegalArgumentException
-    {
-        if (Double.compare(min, max) == 0)
-        {
+    public static double getRandDouble(final Random random, final double min, final double max) throws
+            IllegalArgumentException {
+        if (Double.compare(min, max) == 0) {
             return max;
         }
         Validate.isTrue(max > min, "Max can't be smaller than min!");
         return (random.nextDouble() * (max - min)) + min;
     }
 
-    public static float getRandFloat(final Random random, final float min, final float max) throws IllegalArgumentException
-    {
-        if (Float.compare(min, max) == 0)
-        {
+    public static float getRandFloat(final Random random, final float min, final float max) throws
+            IllegalArgumentException {
+        if (Float.compare(min, max) == 0) {
             return max;
         }
         Validate.isTrue(max > min, "Max can't be smaller than min!");
         return (random.nextFloat() * (max - min)) + min;
     }
 
-    public static boolean getChance(final Random random, final double chance)
-    {
+    public static boolean getChance(final Random random, final double chance) {
         return (chance > 0) && ((chance >= 100) || (chance >= getRandDouble(random, 0, 100)));
     }
-
-    /**
-     * Delegated {@link Random} methods.
-     */
 
     /**
      * Generates random bytes and places them into a user-supplied
@@ -259,11 +209,9 @@ public final class RandomUtils
      * }}</pre>
      *
      * @param bytes the byte array to fill with random bytes
-     *
      * @throws NullPointerException if the byte array is null
      */
-    public static void nextBytes(final byte[] bytes)
-    {
+    public static void nextBytes(final byte[] bytes) {
         random.nextBytes(bytes);
     }
 
@@ -284,8 +232,7 @@ public final class RandomUtils
      * @return the next pseudorandom, uniformly distributed {@code int}
      * value from this random number generator's sequence
      */
-    public static int nextInt()
-    {
+    public static int nextInt() {
         return random.nextInt();
     }
 
@@ -337,15 +284,12 @@ public final class RandomUtils
      * successive calls to this method if n is a small power of two.
      *
      * @param bound the upper bound (exclusive).  Must be positive.
-     *
      * @return the next pseudorandom, uniformly distributed {@code int}
      * value between zero (inclusive) and {@code bound} (exclusive)
      * from this random number generator's sequence
-     *
      * @throws IllegalArgumentException if bound is not positive
      */
-    public static int nextInt(final int bound)
-    {
+    public static int nextInt(final int bound) {
         return random.nextInt(bound);
     }
 
@@ -368,8 +312,7 @@ public final class RandomUtils
      * @return the next pseudorandom, uniformly distributed {@code long}
      * value from this random number generator's sequence
      */
-    public static long nextLong()
-    {
+    public static long nextLong() {
         return random.nextLong();
     }
 
@@ -392,8 +335,7 @@ public final class RandomUtils
      * {@code boolean} value from this random number generator's
      * sequence
      */
-    public static boolean nextBoolean()
-    {
+    public static boolean nextBoolean() {
         return random.nextBoolean();
     }
 
@@ -434,8 +376,7 @@ public final class RandomUtils
      * value between {@code 0.0} and {@code 1.0} from this
      * random number generator's sequence
      */
-    public static float nextFloat()
-    {
+    public static float nextFloat() {
         return random.nextFloat();
     }
 
@@ -476,11 +417,9 @@ public final class RandomUtils
      * @return the next pseudorandom, uniformly distributed {@code double}
      * value between {@code 0.0} and {@code 1.0} from this
      * random number generator's sequence
-     *
      * @see Math#random
      */
-    public static double nextDouble()
-    {
+    public static double nextDouble() {
         return random.nextDouble();
     }
 
@@ -494,14 +433,11 @@ public final class RandomUtils
      * calling the method {@link #nextInt()}.
      *
      * @param streamSize the number of values to generate
-     *
      * @return a stream of pseudorandom {@code int} values
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero
      */
-    public static IntStream ints(final long streamSize)
-    {
+    public static IntStream ints(final long streamSize) {
         return random.ints(streamSize);
     }
 
@@ -511,14 +447,13 @@ public final class RandomUtils
      * <p>
      * <p>A pseudorandom {@code int} value is generated as if it's the result of
      * calling the method {@link #nextInt()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * ints(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code int} values
-     *
-     * @implNote This method is implemented to be equivalent to {@code
-     * ints(Long.MAX_VALUE)}.
      */
-    public static IntStream ints()
-    {
+    public static IntStream ints() {
         return random.ints();
     }
 
@@ -547,16 +482,13 @@ public final class RandomUtils
      * @param streamSize         the number of values to generate
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code int} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero, or {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
      */
-    public static IntStream ints(final long streamSize, final int randomNumberOrigin, final int randomNumberBound)
-    {
+    public static IntStream ints(final long streamSize, final int randomNumberOrigin, final int randomNumberBound) {
         return random.ints(streamSize, randomNumberOrigin, randomNumberBound);
     }
 
@@ -581,20 +513,18 @@ public final class RandomUtils
      *     return r;
      *   }
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * ints(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code int} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * ints(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
-    public static IntStream ints(final int randomNumberOrigin, final int randomNumberBound)
-    {
+    public static IntStream ints(final int randomNumberOrigin, final int randomNumberBound) {
         return random.ints(randomNumberOrigin, randomNumberBound);
     }
 
@@ -606,14 +536,11 @@ public final class RandomUtils
      * of calling the method {@link #nextLong()}.
      *
      * @param streamSize the number of values to generate
-     *
      * @return a stream of pseudorandom {@code long} values
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero
      */
-    public static LongStream longs(final long streamSize)
-    {
+    public static LongStream longs(final long streamSize) {
         return random.longs(streamSize);
     }
 
@@ -623,14 +550,13 @@ public final class RandomUtils
      * <p>
      * <p>A pseudorandom {@code long} value is generated as if it's the result
      * of calling the method {@link #nextLong()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * longs(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code long} values
-     *
-     * @implNote This method is implemented to be equivalent to {@code
-     * longs(Long.MAX_VALUE)}.
      */
-    public static LongStream longs()
-    {
+    public static LongStream longs() {
         return random.longs();
     }
 
@@ -664,16 +590,13 @@ public final class RandomUtils
      * @param streamSize         the number of values to generate
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code long} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero, or {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
      */
-    public static LongStream longs(final long streamSize, final long randomNumberOrigin, final long randomNumberBound)
-    {
+    public static LongStream longs(final long streamSize, final long randomNumberOrigin, final long randomNumberBound) {
         return random.longs(streamSize, randomNumberOrigin, randomNumberBound);
     }
 
@@ -703,20 +626,18 @@ public final class RandomUtils
      *   }
      *   return r;
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * longs(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code long} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * longs(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
-    public static LongStream longs(final long randomNumberOrigin, final long randomNumberBound)
-    {
+    public static LongStream longs(final long randomNumberOrigin, final long randomNumberBound) {
         return random.longs(randomNumberOrigin, randomNumberBound);
     }
 
@@ -729,14 +650,11 @@ public final class RandomUtils
      * of calling the method {@link #nextDouble()}.
      *
      * @param streamSize the number of values to generate
-     *
      * @return a stream of {@code double} values
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero
      */
-    public static DoubleStream doubles(final long streamSize)
-    {
+    public static DoubleStream doubles(final long streamSize) {
         return random.doubles(streamSize);
     }
 
@@ -747,14 +665,13 @@ public final class RandomUtils
      * <p>
      * <p>A pseudorandom {@code double} value is generated as if it's the result
      * of calling the method {@link #nextDouble()}.
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * doubles(Long.MAX_VALUE)}.
      *
      * @return a stream of pseudorandom {@code double} values
-     *
-     * @implNote This method is implemented to be equivalent to {@code
-     * doubles(Long.MAX_VALUE)}.
      */
-    public static DoubleStream doubles()
-    {
+    public static DoubleStream doubles() {
         return random.doubles();
     }
 
@@ -777,17 +694,16 @@ public final class RandomUtils
      * @param streamSize         the number of values to generate
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code double} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code streamSize} is
      *                                  less than zero
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
      */
-    public static DoubleStream doubles(final long streamSize, final double randomNumberOrigin, final double randomNumberBound)
-    {
+    public static DoubleStream doubles(final long streamSize,
+                                       final double randomNumberOrigin,
+                                       final double randomNumberBound) {
         return random.doubles(streamSize, randomNumberOrigin, randomNumberBound);
     }
 
@@ -806,20 +722,18 @@ public final class RandomUtils
      *     r = Math.nextDown(bound);
      *   return r;
      * }}</pre>
+     * <p>
+     * This method is implemented to be equivalent to {@code
+     * doubles(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      *
      * @param randomNumberOrigin the origin (inclusive) of each random value
      * @param randomNumberBound  the bound (exclusive) of each random value
-     *
      * @return a stream of pseudorandom {@code double} values,
      * each with the given origin (inclusive) and bound (exclusive)
-     *
      * @throws IllegalArgumentException if {@code randomNumberOrigin}
      *                                  is greater than or equal to {@code randomNumberBound}
-     * @implNote This method is implemented to be equivalent to {@code
-     * doubles(Long.MAX_VALUE, randomNumberOrigin, randomNumberBound)}.
      */
-    public static DoubleStream doubles(final double randomNumberOrigin, final double randomNumberBound)
-    {
+    public static DoubleStream doubles(final double randomNumberOrigin, final double randomNumberBound) {
         return random.doubles(randomNumberOrigin, randomNumberBound);
     }
 }

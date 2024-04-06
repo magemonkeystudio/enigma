@@ -1,17 +1,18 @@
-package com.gotofinal.diggler.chests;
+package studio.magemonkey.enigma;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.gotofinal.diggler.chests.cfg.Cfg;
-import com.gotofinal.diggler.chests.utils.IntRange;
-import com.gotofinal.diggler.chests.utils.IntsToLong;
-import me.travja.darkrise.core.legacy.util.DeserializationWorker;
-import me.travja.darkrise.core.legacy.util.SerializationBuilder;
-import me.travja.darkrise.core.legacy.util.item.FireworkBuilder;
-import me.travja.darkrise.core.util.BlockLocation;
-import me.travja.darkrise.core.util.BlockType;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import studio.magemonkey.codex.legacy.item.FireworkBuilder;
+import studio.magemonkey.codex.util.SerializationBuilder;
+import studio.magemonkey.enigma.cfg.Cfg;
+import studio.magemonkey.enigma.util.BlockLocation;
+import studio.magemonkey.enigma.util.BlockType;
+import studio.magemonkey.enigma.util.IntRange;
+import studio.magemonkey.enigma.util.IntsToLong;
+import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
+import lombok.Getter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -26,11 +27,15 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import java.util.*;
 import java.util.Map.Entry;
 
-@SerializableAs("RC_WorldChests")
+@SerializableAs("Enigma_WorldChests")
 public class WorldChests implements ConfigurationSerializable {
+    @Getter
     private final           World                       world;
+    @Getter
     private final           int                         maxChests;
+    @Getter
     private final           MapLocation                 min;
+    @Getter
     private final           MapLocation                 max;
     private final           BlockType                   blockType;
     private final           Collection<BlockLocation>   chests;
@@ -38,6 +43,7 @@ public class WorldChests implements ConfigurationSerializable {
     private final transient IntRange                    rx;
     private final transient IntRange                    rz;
 
+    @SuppressWarnings("unchecked")
     public WorldChests(final Map<String, Object> map) {
         final DeserializationWorker w = DeserializationWorker.start(map);
         this.world = Bukkit.getWorld(w.getString("world"));
@@ -47,7 +53,6 @@ public class WorldChests implements ConfigurationSerializable {
         this.blockType = BlockType.fromConfigString(w.getString("blockType"));
         this.chests = w.getHashSet("chests");
         this.chestsToSpawn = ArrayListMultimap.create(this.maxChests / 4, 5);
-        //noinspection unchecked
         boolean empty = false;
         try {
             if (((LinkedHashMap<Long, ArrayList<Object>>) map.get("chestsToSpawn")).isEmpty())
@@ -57,8 +62,9 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (!empty) {
-            final LinkedHashMap<Long, ArrayList<MapLocation>> chMap = (LinkedHashMap<Long, ArrayList<MapLocation>>) map.get("chestsToSpawn");
-            for (final Entry<Long, ArrayList<MapLocation>> entry : chMap.entrySet()) {
+            final LinkedHashMap<Long, List<MapLocation>> chMap =
+                    (LinkedHashMap<Long, List<MapLocation>>) map.get("chestsToSpawn");
+            for (final Entry<Long, List<MapLocation>> entry : chMap.entrySet()) {
                 final Long key;
                 if (entry.getKey() instanceof Number) {
                     key = ((Number) entry.getKey()).longValue();
@@ -73,7 +79,11 @@ public class WorldChests implements ConfigurationSerializable {
         this.rz = new IntRange(this.min.getZ(), this.max.getZ());
     }
 
-    public WorldChests(final World world, final int maxChests, final MapLocation min, final MapLocation max, final BlockType blockType) {
+    public WorldChests(final World world,
+                       final int maxChests,
+                       final MapLocation min,
+                       final MapLocation max,
+                       final BlockType blockType) {
         this.world = world;
         this.maxChests = maxChests;
         this.min = min;
@@ -87,7 +97,9 @@ public class WorldChests implements ConfigurationSerializable {
     }
 
     public boolean onInteract(final CommandSender player, final Block block) {
-        if ((player == null) || (block == null) || (this.blockType.getMat() != block.getType()) /*|| ((this.blockType.getType() != -1) && (this.blockType.getType() != block.getData()))*/ || !this.chests.remove(new BlockLocation(block))) {
+        if ((player == null) || (block == null) || (this.blockType.getMat()
+                != block.getType()) /*|| ((this.blockType.getType() != -1) && (this.blockType.getType() != block.getData()))*/
+                || !this.chests.remove(new BlockLocation(block))) {
             return false;
         }
         block.setType(Material.AIR);
@@ -100,14 +112,15 @@ public class WorldChests implements ConfigurationSerializable {
         }
         this.addMissingChests();
         if (Cfg.isAsyncSaveOnFind()) {
-            Chests.async(Cfg::save);
+            Enigma.async(Cfg::save);
         }
         return true;
     }
 
     public void onLoadChunk(final Chunk chunk) {
         int i = 0;
-        for (final Iterator<MapLocation> it = this.chestsToSpawn.get(IntsToLong.pack(chunk.getX(), chunk.getZ())).iterator(); it.hasNext(); ) {
+        for (final Iterator<MapLocation> it =
+             this.chestsToSpawn.get(IntsToLong.pack(chunk.getX(), chunk.getZ())).iterator(); it.hasNext(); ) {
             final MapLocation loc   = it.next();
             final Block       block = this.spawnChest(loc.getX(), loc.getZ());
             if (block == null) {
@@ -128,7 +141,7 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (count >= 200) {
-            Chests.getInstance().getLogger().warning("Couldn't add new chests upon chunk load after 200 attempts.");
+            Enigma.getInstance().getLogger().warning("Couldn't add new chests upon chunk load after 200 attempts.");
         }
     }
 
@@ -159,11 +172,11 @@ public class WorldChests implements ConfigurationSerializable {
         } else {
             block = this.world.getBlockAt(x, y + 1, z);
         }
-        if (Chests.isInRegion(block.getLocation())) {
+        if (Enigma.isInRegion(block.getLocation())) {
             return null;
         }
 
-        Chests.getInstance().getLogger().info("New chest created!");
+        Enigma.getInstance().getLogger().info("New chest created!");
         block.setType(this.blockType.getMat());
         block.getState().update();
         return block;
@@ -183,7 +196,7 @@ public class WorldChests implements ConfigurationSerializable {
         if ((this.chests.size() + this.chestsToSpawn.size()) >= this.maxChests) {
             return;
         }
-        Chests.getInstance().getLogger().info("We don't have enough chests, attempting to add more.");
+        Enigma.getInstance().getLogger().info("We don't have enough chests, attempting to add more.");
         int       i     = 0;
         final int s     = (this.maxChests - (this.chests.size() + this.chestsToSpawn.size()));
         int       count = 0;
@@ -195,24 +208,10 @@ public class WorldChests implements ConfigurationSerializable {
         }
 
         if (count >= 200) {
-            Chests.getInstance().getLogger().warning("Couldn't add new chests after 200 attempts. Maybe the chunk is not loaded?");
+            Enigma.getInstance()
+                    .getLogger()
+                    .warning("Couldn't add new chests after 200 attempts. Maybe the chunk is not loaded?");
         }
-    }
-
-    public World getWorld() {
-        return this.world;
-    }
-
-    public int getMaxChests() {
-        return this.maxChests;
-    }
-
-    public MapLocation getMin() {
-        return this.min;
-    }
-
-    public MapLocation getMax() {
-        return this.max;
     }
 
     @Override
@@ -222,11 +221,27 @@ public class WorldChests implements ConfigurationSerializable {
 //        {
 //            map.put(entry.getKey(), new ArrayList<>(entry.getValue()));
 //        }
-        return SerializationBuilder.start(7).append("world", this.world.getName()).append("maxChests", this.maxChests).append("minPoint", this.min).append("maxPoint", this.max).append("blockType", this.blockType.toConfigString()).append("chests", new ArrayList<>(this.chests)).append("chestsToSpawn", this.chestsToSpawn.asMap()).build();
+        return SerializationBuilder.start(7)
+                .append("world", this.world.getName())
+                .append("maxChests", this.maxChests)
+                .append("minPoint", this.min)
+                .append("maxPoint", this.max)
+                .append("blockType", this.blockType.toConfigString())
+                .append("chests", new ArrayList<>(this.chests))
+                .append("chestsToSpawn", this.chestsToSpawn.asMap())
+                .build();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString()).append("world", this.world).append("maxChests", this.maxChests).append("min", this.min).append("max", this.max).append("blockType", this.blockType).append("chests", this.chests).append("chestsToSpawn", this.chestsToSpawn).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).appendSuper(super.toString())
+                .append("world", this.world)
+                .append("maxChests", this.maxChests)
+                .append("min", this.min)
+                .append("max", this.max)
+                .append("blockType", this.blockType)
+                .append("chests", this.chests)
+                .append("chestsToSpawn", this.chestsToSpawn)
+                .toString();
     }
 }

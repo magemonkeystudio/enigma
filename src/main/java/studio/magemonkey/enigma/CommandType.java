@@ -1,6 +1,6 @@
-package com.gotofinal.diggler.chests;
+package studio.magemonkey.enigma;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
