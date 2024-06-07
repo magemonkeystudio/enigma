@@ -52,7 +52,7 @@ public final class Cfg {
         cfg.set("autoSaveTime", autoSaveTime);
         cfg.set("asyncSaveOnFind", asyncSaveOnFind);
         cfg.set("commands", commands);
-        cfg.set("fireworks", new ArrayList<>(fireworks));
+        cfg.set("fireworks", fireworks != null ? new ArrayList<>(fireworks) : null);
         cfg.set("enabledWorlds", new ArrayList<>(worlds.keySet()));
         cfg.set("worlds", worlds);
 
