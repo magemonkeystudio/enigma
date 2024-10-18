@@ -2,7 +2,7 @@ name: ${project.name}
 main: studio.magemonkey.enigma.Enigma
 authors: [ Travja, GoFlish ]
 version: ${project.version}
-depend: [ Codex ]
+depend: [ CodexCore ]
 softdepend: [ WorldEdit, WorldGuard ]
 api-version: 1.13
 #commands:
