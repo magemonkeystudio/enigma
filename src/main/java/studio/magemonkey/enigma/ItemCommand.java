@@ -1,11 +1,11 @@
 package studio.magemonkey.enigma;
 
-import studio.magemonkey.codex.util.SerializationBuilder;
-import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
+import studio.magemonkey.codex.util.DeserializationWorker;
+import studio.magemonkey.codex.util.SerializationBuilder;
 
 import java.util.Iterator;
 import java.util.Map;

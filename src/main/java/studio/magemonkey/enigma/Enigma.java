@@ -1,7 +1,5 @@
 package studio.magemonkey.enigma;
 
-import studio.magemonkey.enigma.cfg.Cfg;
-import studio.magemonkey.enigma.util.BlockLocation;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -14,6 +12,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import studio.magemonkey.enigma.cfg.Cfg;
+import studio.magemonkey.enigma.util.BlockLocation;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,13 +1,13 @@
 package studio.magemonkey.enigma;
 
 
-import studio.magemonkey.codex.util.SerializationBuilder;
-import studio.magemonkey.risecore.legacy.util.DeserializationWorker;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
+import studio.magemonkey.codex.util.DeserializationWorker;
+import studio.magemonkey.codex.util.SerializationBuilder;
 
 import java.util.Map;
 
