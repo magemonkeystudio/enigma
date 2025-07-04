@@ -1,5 +1,5 @@
-[![Build](https://github.com/promcteam/enigma/actions/workflows/release.yml/badge.svg?branch=main)](https://s01.oss.sonatype.org/content/repositories/releases/studio/magemonkey/enigma/1.0.2-R0.2-SNAPSHOT)
-[![Build](https://github.com/promcteam/enigma/actions/workflows/devbuild.yml/badge.svg?branch=dev)](https://s01.oss.sonatype.org/content/repositories/snapshots/studio/magemonkey/enigma/1.0.2-R0.2-SNAPSHOT)
+[![Build](https://github.com/promcteam/enigma/actions/workflows/release.yml/badge.svg?branch=main)](https://repo1.maven.org/maven2/studio/magemonkey/enigma/1.0.2-R0.2-SNAPSHOT)
+[![Build](https://github.com/promcteam/enigma/actions/workflows/devbuild.yml/badge.svg?branch=dev)](https://central.sonatype.com/repository/maven-snapshots/studio/magemonkey/enigma/1.0.2-R0.2-SNAPSHOT)
 [![Discord](https://dcbadge.vercel.app/api/server/6UzkTe6RvW?style=flat)](https://discord.gg/6UzkTe6RvW)
 
 # Enigma
@@ -10,7 +10,7 @@ or snapshots through Sonatype.
 ```xml
 <repository>
     <id>sonatype</id>
-    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
 </repository>
 ...
 <dependency>
